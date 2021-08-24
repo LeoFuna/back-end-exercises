@@ -1,1 +1,3 @@
-# back-end-exercises
+# Back-end Exercises
+
+Repositório de exercícios de Back-end que estarei realizando.
