@@ -25,3 +25,18 @@ WHERE f1.replacement_cost = f2.replacement_cost;
 
 SELECT f1.title, f1.rental_duration, f2.title, f2.rental_duration FROM film AS f1, film AS f2
 WHERE f1.length = f2.length AND (f1.rental_duration BETWEEN 2 AND 4) AND (f2.rental_duration BETWEEN 2 AND 4);
+-----------------
+SELECT first_name, last_name FROM staff
+UNION ALL
+SELECT first_name, last_name FROM actor;
+
+SELECT first_name, last_name FROM customer WHERE first_name LIKE '%tracy%'
+UNION
+SELECT first_name, last_name FROM actor WHERE first_name LIKE '%je%';
+
+(SELECT first_name, last_name FROM actor ORDER BY actor_id DESC LIMIT 5)
+UNION
+(SELECT first_name, last_name FROM staff LIMIT 1)
+UNION
+(SELECT first_name, last_name FROM customer LIMIT 5 OFFSET 14)
+ORDER BY first_name;
