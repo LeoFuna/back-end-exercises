@@ -14,4 +14,19 @@ SELECT M.title, B.rating FROM Movies AS M
 INNER JOIN BoxOffice AS B
 ON M.id = B.movie_id
 ORDER BY B.rating DESC;
--- 4
+-- 4 Utilizando o LEFT JOIN , faça uma busca que retorne todos os dados dos cinemas, mesmo os que não possuem filmes em cartaz e, 
+-- adicionalmente, os dados dos filmes que estão em cartaz nestes cinemas. Retorne os nomes dos cinemas em ordem alfabética.
+SELECT T.name, M.title FROM Theater AS T
+LEFT JOIN Movies AS M
+ON T.id = M.theater_id
+ORDER BY T.name;
+-- 5 Utilizando o RIGHT JOIN , faça uma busca que retorne todos os dados dos filmes, mesmo os que não estão em cartaz e,
+-- adicionalmente, os dados dos cinemas que possuem estes filmes em cartaz. Retorne os nomes dos cinemas em ordem alfabética.
+
+-- 6 Faça duas buscas, uma utilizando SUBQUERY e outra utilizando INNER JOIN , que retornem os títulos dos filmes que possuem avaliação maior que 7.5.
+
+-- 7 Faça duas buscas, uma utilizando SUBQUERY e outra utilizando INNER JOIN , que retornem as avaliações dos filmes lançados depois de 2009.
+
+-- 8 Utilizando o EXISTS , selecione o nome e localização dos cinemas que possuem filmes em cartaz.
+
+-- 9 Utilizando o EXISTS , selecione o nome e localização dos cinemas que não possuem filmes em cartaz.
