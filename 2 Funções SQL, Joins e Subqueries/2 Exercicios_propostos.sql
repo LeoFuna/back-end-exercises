@@ -10,3 +10,8 @@ INNER JOIN BoxOffice AS B
 ON M.id = B.movie_id 
 WHERE B.international_sales > B.domestic_sales;
 -- 3 Utilizando o INNER JOIN , faça uma busca que retorne os filmes e sua avaliação ( rating ) em ordem decrescente.
+SELECT M.title, B.rating FROM Movies AS M
+INNER JOIN BoxOffice AS B
+ON M.id = B.movie_id
+ORDER BY B.rating DESC;
+-- 4
