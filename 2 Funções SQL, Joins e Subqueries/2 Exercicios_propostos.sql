@@ -56,5 +56,9 @@ INNER JOIN BoxOffice AS B
 ON B.movie_id = M.id
 WHERE M.`year` > 2009;
 -- 8 Utilizando o EXISTS , selecione o nome e localização dos cinemas que possuem filmes em cartaz.
-
+SELECT `name`, location FROM Theater
+WHERE EXISTS (
+	SELECT * FROM Movies
+    WHERE Movies.theater_id = Theater.id
+);
 -- 9 Utilizando o EXISTS , selecione o nome e localização dos cinemas que não possuem filmes em cartaz.
