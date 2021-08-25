@@ -27,7 +27,19 @@ RIGHT JOIN Movies AS M
 ON T.id = M.theater_id
 ORDER BY T.`name`;
 -- 6 Faça duas buscas, uma utilizando SUBQUERY e outra utilizando INNER JOIN , que retornem os títulos dos filmes que possuem avaliação maior que 7.5.
+SELECT 
+	(
+		SELECT title
+        FROM Movies 
+        WHERE BoxOffice.movie_id = Movies.id
+	) AS title,
+	BoxOffice.rating 
+FROM BoxOffice WHERE rating > 7.5;
 
+SELECT M.title, B.rating FROM Movies AS M
+INNER JOIN BoxOffice AS B
+ON B.movie_id = M.id
+WHERE B.rating > 7.5;
 -- 7 Faça duas buscas, uma utilizando SUBQUERY e outra utilizando INNER JOIN , que retornem as avaliações dos filmes lançados depois de 2009.
 
 -- 8 Utilizando o EXISTS , selecione o nome e localização dos cinemas que possuem filmes em cartaz.
