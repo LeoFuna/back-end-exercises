@@ -40,3 +40,22 @@ UNION
 UNION
 (SELECT first_name, last_name FROM customer LIMIT 5 OFFSET 14)
 ORDER BY first_name;
+----------------------
+SELECT id, title FROM hotel.Books AS B
+WHERE NOT EXISTS (
+	SELECT * FROM hotel.Books_Lent 
+    WHERE book_id = B.Id
+);
+
+SELECT id, title FROM hotel.Books AS B
+WHERE EXISTS (
+	SELECT * FROM hotel.Books_Lent
+    WHERE book_id = B.Id AND B.Title LIKE '%lost%'
+);
+
+SELECT CUS.`Name`, CAR.`Name` FROM hotel.Customers AS CUS
+INNER JOIN hotel.Cars AS CAR 
+WHERE EXISTS (
+	SELECT * FROM hotel.CarSales
+    WHERE CarID = CAR.Id AND CustomerID = CUS.CustomerID
+);
