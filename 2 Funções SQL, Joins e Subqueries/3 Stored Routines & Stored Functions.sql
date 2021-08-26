@@ -42,3 +42,54 @@ DELIMITER ;
 
 CALL VerificaSeClienteAtivo('SANDRA.MARTIN@sakilacustomer.org', @eAtivo);
 SELECT @eAtivo;
+
+-----------------------
+USE sakila;
+DELIMITER $$
+
+CREATE FUNCTION ExibeQuantidadeDeLocacoesDeUmCliente(id INT)
+RETURNS INT READS SQL DATA
+BEGIN
+	DECLARE numero_de_locacoes INT;
+	SELECT COUNT(*) FROM payment WHERE customer_id = id
+    INTO numero_de_locacoes;
+    RETURN numero_de_locacoes;
+END $$
+
+DELIMITER ;
+
+SELECT ExibeQuantidadeDeLocacoesDeUmCliente(2);
+
+SELECT title FROM film INNER JOIN inventory WHERE inventory.film_id = film.film_id;
+
+USE sakila;
+DELIMITER $$
+
+CREATE FUNCTION RetornaNomeDoFilmePorIdInventorio(id INT)
+RETURNS VARCHAR(80) READS SQL DATA
+BEGIN
+	DECLARE nome_do_filme VARCHAR(80);
+    SELECT F.title FROM film AS F INNER JOIN inventory AS I ON I.film_id = F.film_id WHERE I.inventory_id = id
+    INTO nome_do_filme;
+    RETURN nome_do_filme;
+END $$
+
+DELIMITER ;
+
+SELECT RetornaNomeDoFilmePorIdInventorio(1);
+
+USE sakila;
+DELIMITER $$
+
+CREATE FUNCTION ExibeTotalDeFilmesNumaCategoria(categoria VARCHAR(20))
+RETURNS INT READS SQL DATA
+BEGIN
+	DECLARE quantidade_de_filmes INT;
+    SELECT COUNT(*) FROM film_category AS F INNER JOIN category AS C ON C.category_id = F.category_id
+    WHERE categoria = C.`name` INTO quantidade_de_filmes;
+    RETURN quantidade_de_filmes;
+END $$
+
+DELIMITER ;
+
+SELECT ExibeTotalDeFilmesNumaCategoria('Action');
