@@ -78,3 +78,8 @@ DROP INDEX name_index ON sakila.category;
 -- Crie um INDEX na tabela address (banco de dados sakila ) adicionando-o na coluna postal_code .
 CREATE INDEX postal_code_index ON sakila.address(postal_code);
 DROP INDEX postal_code_index ON sakila.address;
+
+-- Escreva uma query SQL para alterar na tabela localtions o nome da coluna street_address para address , mantendo o mesmo tipo e tamanho de dados.
+ALTER TABLE hr.locations CHANGE street_address address VARCHAR(40) NOT NULL;
+-- Escreva uma query SQL para alterar o nome da coluna region_name para region , mantendo o mesmo tipo e tamanho de dados.
+ALTER TABLE hr.regions CHANGE region_name region VARCHAR(25);
