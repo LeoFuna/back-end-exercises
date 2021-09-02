@@ -40,3 +40,41 @@ INSERT INTO gerente(nome) VALUES ('Marcos Freitas'), ('Jasmin Ferreira');
 INSERT INTO cuidadores(nome, id_gerente) VALUES ('Richard Rasmussen', 2), ('Helena Torres', 2), ('Samantha Ribas', 1);
 
 INSERT INTO animal_cuidador(id_animal, id_cuidador) VALUES (1, 1), (2, 1), (3, 2);
+
+
+-------------------
+-- 1. Crie uma view chamada film_with_categories utilizando as tabelas category , film_category e film do banco de dados sakila . 
+-- Essa view deve exibir o título do filme, o id da categoria e o nome da categoria. Os resultados devem ser ordenados pelo título do filme.
+USE sakila;
+CREATE VIEW film_with_category AS SELECT F.title, C.category_id, C.`name` FROM film_category AS FC
+INNER JOIN film AS F ON F.film_id = FC.film_id
+INNER JOIN category AS C ON C.category_id = FC.category_id
+ORDER BY F.title;
+
+-- 2. Crie uma view chamada film_info utilizando as tabelas actor , film_actor e film do banco de dados sakila . 
+-- Sua view deve exibir o actor_id , o nome completo do ator ou da atriz em uma coluna com o ALIAS actor e o título dos filmes. 
+-- Os resultados devem ser ordenados pelos nomes de atores e atrizes.
+CREATE VIEW film_info AS SELECT A.actor_id, CONCAT(first_name, ' ', last_name) AS actor, F.title FROM film_actor AS FA
+INNER JOIN film AS F ON F.film_id = FA.film_id
+INNER JOIN actor AS A ON A.actor_id = FA.actor_id
+ORDER BY `actor`;
+
+-- 3.Crie uma view chamada address_info que faça uso das tabelas address e city do banco de dados sakila . 
+-- Sua view deve exibir o address_id , o address , o district , o city_id e a city . 
+-- Os resultados devem ser ordenados pelo nome das cidades.
+CREATE VIEW address_info AS SELECT A.address_id, A.address, A.district, A.city_id, C.city FROM address A
+INNER JOIN city C ON C.city_id = A.city_id
+ORDER BY C.city;
+
+-- 4. Crie uma view chamada movies_languages , usando as tabelas film e language do banco de dados sakila . 
+-- Sua view deve exibir o título do filme , o id do idioma e o idioma do filme.
+CREATE VIEW movies_language AS SELECT F.title, L.language_id, L.`name` FROM film F
+INNER JOIN language L ON L.language_id = F.language_id;
+
+--Crie um FULLTEXT INDEX na tabela category (banco de dados sakila ), adicionando-o na coluna name.
+CREATE FULLTEXT INDEX name_index ON sakila.category(`name`);
+DROP INDEX name_index ON sakila.category;
+
+-- Crie um INDEX na tabela address (banco de dados sakila ) adicionando-o na coluna postal_code .
+CREATE INDEX postal_code_index ON sakila.address(postal_code);
+DROP INDEX postal_code_index ON sakila.address;
