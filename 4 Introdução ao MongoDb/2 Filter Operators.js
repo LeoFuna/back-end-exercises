@@ -69,3 +69,12 @@ db.superheroes.find({ $and: [{ race: {$not: {$eq: "Human"}} }, { 'aspects.height
 db.superheroes.find({ $and: [ { 'aspects.height': { $in: [180, 200] } }, { publisher: "Marvel Comics" } ] })
 // Exercício 15: Selecione todos os super-heróis que pesem entre 80kg e 100kg , sejam Humanos ou Mutantes e não sejam publicados pela DC Comics .
 db.superheroes.find({ $and: [{ 'aspects.weight': { $gt: 80, $lt: 100 } }, { race: {$in: ["Human", "Mutant"]}  }, { publisher: {$not: { $eq: "DC Comics" }} }] })
+// Exercício 16: Retorne o total de documentos que não contêm o campo race .
+db.superheroes.count({ race: { $exists: false } })
+// Exercício 17: Retorne o total de documentos que contêm o campo hairColor .
+db.superheroes.count({ "aspects.hairColor": { $exists: true } })
+// Exercício 18: Remova apenas um documento publicado pela Sony Pictures .
+db.superheroes.deleteOne({ publisher: "Sony Pictures" })
+// Exercício 19: Remova todos os documentos publicados pelo George Lucas .
+db.superheroes.deleteMany({ publisher: "George Lucas" })
+
