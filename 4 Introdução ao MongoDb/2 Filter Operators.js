@@ -21,4 +21,5 @@ db.restaurants.count({ $or: [{rating: { $gte: 6 }}, { borough: "Brooklyn" }] })
 // Selecione e faça a contagem dos restaurantes localizados nos bairros Queens , Staten Island e Broklyn e possuem avaliação maior que 4 .
 db.restaurants.count({ $and: [{ borough: { $in: ["Queens", "Staten Island", "Brooklyn"] } }, { rating: { $gt: 4 } }] })
 // Selecione e faça a contagem dos restaurantes onde nem o campo avaliação seja igual a 1 , nem o campo culinária seja do tipo American .
+db.restaurants.count({ $nor: [{ rating: 1 }, { cousine: "American" } ] })
 // Selecione e faça a contagem dos resturantes em que a avaliação seja maior que 6 ou menor que 10 , E esteja localizado no bairro Brooklyn , OU não possuem culinária do tipo Delicatessen .
