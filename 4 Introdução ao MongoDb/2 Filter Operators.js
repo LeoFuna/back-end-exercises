@@ -30,3 +30,4 @@ db.restaurants.count({ $or: [ {$and: [ { $or: [{ rating: { $gt: 6 } }, { rating:
 // Ordene alfabeticamente os restaurantes pelo nome (atributo name ).
 db.restaurants.find({}, { name: 1, _id: 0 }).sort({name: 1})
 // Ordene os restaurantes de forma descrescente baseado nas avaliações.
+db.restaurants.find({}, {rating: 1, _id: 0}).sort({ rating: -1 })
