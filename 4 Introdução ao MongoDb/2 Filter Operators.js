@@ -31,3 +31,9 @@ db.restaurants.count({ $or: [ {$and: [ { $or: [{ rating: { $gt: 6 } }, { rating:
 db.restaurants.find({}, { name: 1, _id: 0 }).sort({name: 1})
 // Ordene os restaurantes de forma descrescente baseado nas avaliações.
 db.restaurants.find({}, {rating: 1, _id: 0}).sort({ rating: -1 })
+
+// ------------------Removendo Documentos -----------------------
+// Remova o primeiro restaurante que possua culinária do tipo Ice Cream, Gelato, Yogurt, Ices .
+db.restaurants.deleteOne({ cuisine: { $in: ["Ice Cream, Gelato, Yogurt, Ices"] } })
+// Remova todos os restaurantes que possuem culinária do tipo American .
+db.restaurants.deleteMany({ cuisine: "American" })
