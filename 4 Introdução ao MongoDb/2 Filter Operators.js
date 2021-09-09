@@ -25,3 +25,8 @@ db.restaurants.count({ $nor: [{ rating: 1 }, { cousine: "American" } ] })
 // Selecione e faça a contagem dos resturantes em que a avaliação seja maior que 6 ou menor que 10 , E esteja localizado no bairro Brooklyn , 
 // OU não possuem culinária do tipo Delicatessen .
 db.restaurants.count({ $or: [ {$and: [ { $or: [{ rating: { $gt: 6 } }, { rating: { $lt: 10 } }] }, { borough: "Brooklyn" } ]}, { cuisine: { $ne: "Delicatessen" }} ]})
+
+// ----------------Metodo Sort --------------------
+// Ordene alfabeticamente os restaurantes pelo nome (atributo name ).
+db.restaurants.find({}, { name: 1, _id: 0 }).sort({name: 1})
+// Ordene os restaurantes de forma descrescente baseado nas avaliações.
