@@ -37,3 +37,14 @@ db.restaurants.find({}, {rating: 1, _id: 0}).sort({ rating: -1 })
 db.restaurants.deleteOne({ cuisine: { $in: ["Ice Cream, Gelato, Yogurt, Ices"] } })
 // Remova todos os restaurantes que possuem culinária do tipo American .
 db.restaurants.deleteMany({ cuisine: "American" })
+
+//-------------------Exercícios Gerais para mongoDB ---------------
+// Exercício 1: Inspecione um documento para que você se familiarize com a estrutura. Entenda os atributos e os níveis existentes.
+db.superheroes.find().limit(1)
+// Exercício 2: Selecione todos os super-heróis com menos de 1.80m de altura. Lembre-se de que essa informação está em centímetros.
+
+// Exercício 3: Retorne o total de super-heróis menores que 1.80m.
+
+// Exercício 4: Retorne o total de super-heróis com até 1.80m.
+
+// Exercício 5: Selecione um super-herói com 2.00m ou mais de altura.
