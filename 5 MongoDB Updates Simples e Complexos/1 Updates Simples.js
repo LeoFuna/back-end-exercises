@@ -14,7 +14,9 @@ db.movies.updateOne({ title: "Batman" }, { $mul: { imdbRating: 4 } });
 db.movies.updateOne({ title: "Batman" }, { $rename: { budget: "estimatedBudget" } });
 // Exercício 8 : Utilize o operador $min para alterar o budget para 5 do filme Home Alone .
 db.movies.updateOne({ title: "Home Alone" }, { $min: { budget: 5 } });
-// Exercício 9 : Utilize o operador $max para alterar o imdbRating para 8.6 do filme Godzilla . Além disso, altere a categoria "adventure" para "thriller" do filme Godzilla .
+// Exercício 9 : Utilize o operador $max para alterar o imdbRating para 8.6 do filme Godzilla.
+// Além disso, altere a categoria "adventure" para "thriller" do filme Godzilla.
+db.movies.updateOne({ title: "Godzilla" }, { $max: { imdbRating: 8.6 }, $set: { "category.1": "thriller" } });
 // Exercício 10 : Utilizando o operador $currentDate , crie um campo chamado lastUpdated com o tipo timestamp no filme Home Alone .
 // Exercício 11 : Utilizando uma única operação, crie um campo chamado sequels e atribua a ele o valor 0 em todos os documentos.
 // Exercício 12 : Utilizando uma única operação, remova os campos budget e estimatedBudget em todos os documentos.
