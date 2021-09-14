@@ -28,3 +28,13 @@ db.movies.updateOne({ title: "Home Alone" }, { $set: { cast: [{
 // a Daniel Stern no filme Home Alone .
 db.movies.updateOne({ title: "Home Alone" }, { $set: { "cast.$[element].character": "Marv" } }, 
 { arrayFilters: [ {"element.actor": "Daniel Stern" }] });
+// Exercício 10: Crie um array de documentos chamado cast para o filme Batman com os seguintes dados:
+db.movies.updateOne({ title: "Batman" }, { $set: { cast: [{
+  "character": "Batman"
+},
+{
+  "character": "Alfred"
+},
+{
+  "character": "Coringa"
+}] } });
