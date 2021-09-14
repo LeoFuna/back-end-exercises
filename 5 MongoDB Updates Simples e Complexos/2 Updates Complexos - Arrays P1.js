@@ -48,3 +48,7 @@ db.movies.updateOne({ title: "Batman" }, { $set: { "cast.$[element].actor": ["Mi
 // Adicione o campo actor , que deve ser um array com o valor Heath Ledger , ao array de cast em que o campo character seja igual a Coringa .
 db.movies.updateOne({ title: "Batman" }, { $set: { "cast.$[element].actor": ["Heath Ledger"] } }, 
 { arrayFilters: [{ "element.character": "Coringa" }] });
+// Exercício 12: Adicione aos atores de cast do character Batman do filme Batman os valores "Michael Keaton" , "Val Kilmer" e "George Clooney" 
+// , e deixe o array em ordem alfabética.
+db.movies.updateOne({ title: "Batman" }, { $push: { "cast.0.actor": { 
+  $each: [ "Michael Keaton" , "Val Kilmer", "George Clooney" ], $sort: 1 } } });
