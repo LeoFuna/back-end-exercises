@@ -21,6 +21,7 @@ db.movies.find({ category: { $size: 2 } }, { title: 1, _id: 0 });
 // 11 Retorne somente o título de todos os filmes com quatro elementos no array ratings .
 db.movies.find({ ratings: { $size: 4 } }, { title: 1, _id: 0 });
 // 12 Busque os filmes em que o módulo 5 do campo budget seja 0 e que o array category tenha tamanho 2 .
+db.movies.find({ category: { $size: 2 }, budget: { $mod: [5, 0] } });
 // 13 Retorne os filmes da categoria "sci-fi" ou que possua o ratings maior do que 199 , exibindo apenas os campos title , ratings e category .
 // 14 Retorne os filmes em que o ratings possua tamanho 4 e que seja da category "adventure" ou "family" , mas que não tenha o imdbRating menor que 7.
 // 15 Adicione o campo description no filme Batman com o seguinte valor: "The Dark Knight of Gotham City begins his war on crime with his first major enemy being Jack Napier, a criminal who becomes the clownishly homicidal Joker." .
