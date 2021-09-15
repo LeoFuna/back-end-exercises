@@ -15,8 +15,11 @@ db.movies.find({ ratings: { $elemMatch: { $gt: 100, $lt: 105 } } }, { title: 1, 
 // 8 Retorne todos os filmes com ratings entre 64 e 105 e divisíveis por 9 , exibindo apenas os campos title e ratings .
 db.movies.find({ ratings: { $elemMatch: { $gt: 64, $lt: 105, $mod: [9, 0] } } }, { title: 1, ratings: 1, _id: 0 });
 // 9 Retorne os filmes da categoria adventure e com ratings maior do que 103 , exibindo apenas os campos title , ratings e category .
+db.movies.find({ category: { $all: ["adventure"] }, ratings: { $elemMatch: { $gt: 103 } } }, { title: 1, ratings: 1, category: 1, _id: 0 });
 // 10 Retorne somente o título de todos os filmes com dois elementos no array category .
+
 // 11 Retorne somente o título de todos os filmes com quatro elementos no array ratings .
+
 // 12 Busque os filmes em que o módulo 5 do campo budget seja 0 e que o array category tenha tamanho 2 .
 // 13 Retorne os filmes da categoria "sci-fi" ou que possua o ratings maior do que 199 , exibindo apenas os campos title , ratings e category .
 // 14 Retorne os filmes em que o ratings possua tamanho 4 e que seja da category "adventure" ou "family" , mas que não tenha o imdbRating menor que 7.
