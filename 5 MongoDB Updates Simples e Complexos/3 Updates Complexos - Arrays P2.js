@@ -11,6 +11,7 @@ db.movies.updateOne({ title: "Home Alone" }, { $push: { ratings: { $each: [200, 
 // 6 Retorne todos os filmes com ratings maior do que 103 , exibindo apenas os campos title e ratings .
 db.movies.find({ ratings: { $elemMatch: { $gte: 103 } } }, { title: 1, ratings: 1, _id: 0 });
 // 7 Retorne todos os filmes com ratings entre 100 e 105 , exibindo apenas os campos title e ratings .
+db.movies.find({ ratings: { $elemMatch: { $gt: 100, $lt: 105 } } }, { title: 1, ratings: 1, _id: 0 });
 // 8 Retorne todos os filmes com ratings entre 64 e 105 e divisíveis por 9 , exibindo apenas os campos title e ratings .
 // 9 Retorne os filmes da categoria adventure e com ratings maior do que 103 , exibindo apenas os campos title , ratings e category .
 // 10 Retorne somente o título de todos os filmes com dois elementos no array category .
