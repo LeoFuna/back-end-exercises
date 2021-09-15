@@ -9,6 +9,7 @@ db.movies.updateOne({ title: "Godzilla" }, { $push: { ratings: { $each: [78, 52,
 // 5 Adicione um array chamado ratings ao filme Home Alone com os seguintes valores: [200, 99, 65] .
 db.movies.updateOne({ title: "Home Alone" }, { $push: { ratings: { $each: [200, 99, 65] }} });
 // 6 Retorne todos os filmes com ratings maior do que 103 , exibindo apenas os campos title e ratings .
+db.movies.find({ ratings: { $elemMatch: { $gte: 103 } } }, { title: 1, ratings: 1, _id: 0 });
 // 7 Retorne todos os filmes com ratings entre 100 e 105 , exibindo apenas os campos title e ratings .
 // 8 Retorne todos os filmes com ratings entre 64 e 105 e divisíveis por 9 , exibindo apenas os campos title e ratings .
 // 9 Retorne os filmes da categoria adventure e com ratings maior do que 103 , exibindo apenas os campos title , ratings e category .
