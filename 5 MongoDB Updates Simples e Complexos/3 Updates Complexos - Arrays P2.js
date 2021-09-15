@@ -36,7 +36,9 @@ db.movies.find({
 // 15 Adicione o campo description no filme Batman com o seguinte valor: "The Dark Knight of Gotham City begins his war on crime with his first major enemy being Jack Napier, a criminal who becomes the clownishly homicidal Joker." .
 db.movies.updateOne({ title: "Batman" }, { $set: { description: "The Dark Knight of Gotham City begins his war on crime with his first major enemy being Jack Napier, a criminal who becomes the clownishly homicidal Joker." } });
 // 16 Adicione o campo description no filme Godzilla com o seguinte valor: "The world is beset by the appearance of monstrous creatures, but one of them may be the only one who can save humanity." .
-
+db.movies.updateOne({ title: "Godzilla" },
+ { $set: { description: "The world is beset by the appearance of monstrous creatures, but one of them may be the only one who can save humanity." } 
+});
 // 17 Adicione o campo description no filme Home Alone com o seguinte valor: "An eight-year-old troublemaker must protect his house from a pair of burglars when he is accidentally left home alone by his family during Christmas vacation." .
 // 18 Utilizando o operador $regex , retorne todos os filmes em que a descrição comece com a palavra "The" .
 // 19 Utilizando o operador $regex , retorne todos os filmes em que a descrição termine com a palavra "humanity." .
