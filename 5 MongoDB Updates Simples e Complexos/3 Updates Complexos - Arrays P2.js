@@ -25,7 +25,14 @@ db.movies.find({ category: { $size: 2 }, budget: { $mod: [5, 0] } });
 // 13 Retorne os filmes da categoria "sci-fi" ou que possua o ratings maior do que 199 , exibindo apenas os campos title , ratings e category .
 db.movies.find({ $or: [{category: { $all: ["sci-fi"] }}, {ratings: { $elemMatch: { $gt: 199 } }}] }, { title: 1, ratings: 1, category: 1,_id: 0 });
 // 14 Retorne os filmes em que o ratings possua tamanho 4 e que seja da category "adventure" ou "family" , mas que não tenha o imdbRating menor que 7.
-
+db.movies.find({ 
+  $and: 
+  [
+    { category: { $elemMatch: { $in: ["adventure", "family"] } } },
+    { ratings: { $size: 4 } }, 
+    { imdbRating: { $gte: 7 } }
+  ] 
+});
 // 15 Adicione o campo description no filme Batman com o seguinte valor: "The Dark Knight of Gotham City begins his war on crime with his first major enemy being Jack Napier, a criminal who becomes the clownishly homicidal Joker." .
 
 // 16 Adicione o campo description no filme Godzilla com o seguinte valor: "The world is beset by the appearance of monstrous creatures, but one of them may be the only one who can save humanity." .
