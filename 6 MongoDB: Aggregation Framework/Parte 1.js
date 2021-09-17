@@ -43,3 +43,19 @@ db.clients.aggregate([
     as: 'transacoesDoCliente'
     } 
   }]);
+
+// EXERCICIOS DO DIA
+// Exercício 1: Utilizando o estágio $match , escreva uma agregação para retornar somente os clientes do sexo "MASCULINO" .
+db.clientes.aggregate([{ 
+  $match: {
+    sexo: "MASCULINO"
+  } }])
+// Exercício 2: Utilizando o estágio $match , escreva uma agregação para retornar somente os clientes do sexo "FEMININO" e com data de nascimento entre os anos de 1995 e 2005 .
+
+// Exercício 3: Utilizando o estágio $match , escreva uma agregação para retornar somente os clientes do sexo "FEMININO" e com data de nascimento entre os anos de 1995 e 2005 , limitando a quantidade de documentos retornados em 5 .
+
+// Exercício 4: Conte quantos clientes do estado SC existem na coleção. Retorne um documento em que o campo _id contenha a UF e outro campo com o total.
+
+// Exercício 5: Agrupe os clientes por sexo . Retorne o total de clientes de cada sexo no campo total .
+
+// Exercício 6: Agrupe os clientes por sexo e uf . Retorne o total de clientes de cada sexo no campo total .
