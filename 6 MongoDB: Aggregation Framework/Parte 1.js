@@ -81,5 +81,16 @@ db.clientes.aggregate([
   }}, 
   { $project: { total: 1 } }
 ]);
-
-// Exercício 6: Agrupe os clientes por sexo e uf . Retorne o total de clientes de cada sexo no campo total .
+// Exercício 6: Agrupe os clientes por sexo e uf . Retorne o total de clientes de cada sexo no campo total.
+db.clientes.aggregate([ 
+  { $group: {
+    _id: {
+      sexo: "$sexo",
+      localidade: "$endereco.uf"
+      },
+    total: {
+      $sum: 1
+    }
+  }}, 
+  { $project: { total: 1 } }
+]);
