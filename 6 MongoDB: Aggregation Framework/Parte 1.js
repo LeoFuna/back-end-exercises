@@ -15,3 +15,16 @@ db.transactions.aggregate([{ $group: { _id: null, valorTotal: { $sum: "$value" }
 db.transactions.aggregate([{ $group: { _id: "$bank", valorTotal: { $sum: "$value" } } }]);
 //4 Selecione os bancos que têm o valor total de transações maior que 1000.
 db.transactions.aggregate([{ $group: { _id: "$bank", valorTotal: { $sum: "$value" }} }, { $match: { valorTotal: { $gt: 1000 } } }]);
+
+// PARA FIXAR $unwind e $lookup
+//1 Selecione todos os clientes com as suas respectivas transações feitas;
+db.clients.aggregate([{
+  $lookup: {
+    from: 'transactions',
+    localField: 'name',
+    foreignField: 'from',
+    as: 'transacoesDoCliente'
+  } }]);
+  
+//2 Selecione quatro clientes com as suas respectivas transações recebidas;
+//3 Selecione todos os cliente do estado da "Florida" e suas respectivas transações recebidas.
