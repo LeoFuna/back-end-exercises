@@ -165,7 +165,27 @@ db.vendas.aggregate([
   }
 ]);
 // Exercício 11 : Descubra quantos clientes compraram menos de três vezes entre os meses de Janeiro de 2020 e Março de 2020 .
-
+db.vendas.aggregate([ 
+  {
+    $match: {
+      dataVenda: { $gte: ISODate("2020-01-01"), $lte: ISODate("2020-03-31") }
+    }
+  },
+  {
+    $group: {
+      _id: "$clienteId",
+      comprasRealizadas: { $sum: 1 }
+    }
+  },
+  {
+    $match: {
+      comprasRealizadas: { $lt: 3 }
+    }
+  },
+  {
+    $count: "clientesDeJanAMar"
+  }
+]);
 // Exercício 12 : Descubra quais as três uf s que mais compraram no ano de 2020 . Retorne os documentos no seguinte formato:
 
 // Exercício 13 : Encontre qual foi o total de vendas e a média de vendas de cada uf no ano de 2019 . 
