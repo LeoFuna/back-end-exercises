@@ -109,6 +109,22 @@ db.clientes.aggregate([
   { $project: { estado: "$_id.localidade", sexo: "$_id.sexo", total: 1, _id: 0 } }
 ]);
 // Exercício 8 : Descubra quais são os 5 clientes que gastaram o maior valor.
+db.vendas.aggregate([ 
+  {
+    $group: {
+      _id: "$clienteId",
+      gastoTotal: { $sum: "$valorTotal" }
+    }
+  },
+  {
+    $sort: {
+      gastoTotal: -1
+    }
+  },
+  {
+    $limit: 5
+  }
+]);
 // Exercício 9 : Descubra quais são os 10 clientes que gastaram o maior valor no ano de 2019 .
 // Exercício 10 : Descubra quantos clientes compraram mais de 5 vezes. Retorne um documento que contenha somente o campo clientes com o total de clientes.
 // Exercício 11 : Descubra quantos clientes compraram menos de três vezes entre os meses de Janeiro de 2020 e Março de 2020 .
