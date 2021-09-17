@@ -61,7 +61,16 @@ db.clientes.aggregate([{
     sexo: "FEMININO", dataNascimento: { $gt: ISODate("1995-01-01T00:00:00.0Z"), $lt: ISODate("2005-01-01T00:00:00.0Z") } }
   }, { $limit: 5 }]);
 // Exercício 4: Conte quantos clientes do estado SC existem na coleção. Retorne um documento em que o campo _id contenha a UF e outro campo com o total.
-
+db.clientes.aggregate([ 
+  { $group: {
+    _id: "$endereco.uf",
+    total: {
+      $sum: 1
+    }
+  }}, 
+  { $match: { _id: "SC" } }, 
+  { $project: { total: 1 } }
+]);
 // Exercício 5: Agrupe os clientes por sexo . Retorne o total de clientes de cada sexo no campo total .
 
 // Exercício 6: Agrupe os clientes por sexo e uf . Retorne o total de clientes de cada sexo no campo total .
