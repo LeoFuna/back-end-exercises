@@ -10,5 +10,8 @@ db.transactions.aggregate([{ $match: { value: { $gt: 1000 } }}, { $limit: 3 }]);
 //1 Selecione todos os bancos, ou seja, valores do campo bank ;
 db.transactions.aggregate([{ $project: { _id: 0, bank: 1 } }]);
 //2 Selecione o valor total das transações em cada banco e quantas são;
+db.transactions.aggregate([{ $group: { _id: null, valorTotal: { $sum: "$value" }, transacoes: { $sum: 1 } } }]);
 //3 Selecione o valor total de transações por banco;
+db.transactions.aggregate([{ $group: { _id: "$bank", valorTotal: { $sum: "$value" } } }]);
 //4 Selecione os bancos que têm o valor total de transações maior que 1000.
+db.transactions.aggregate([{ $group: { _id: "$bank", valorTotal: { $sum: "$value" }} }, { $match: { valorTotal: { $gt: 1000 } } }]);
