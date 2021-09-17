@@ -187,6 +187,41 @@ db.vendas.aggregate([
   }
 ]);
 // Exercício 12 : Descubra quais as três uf s que mais compraram no ano de 2020 . Retorne os documentos no seguinte formato:
-
+db.vendas.aggregate([
+  {
+    $match: {
+      dataVenda: { $gte: ISODate("2020-01-01"), $lte: ISODate("2020-12-31") }
+    }
+  },
+  {
+    $lookup: {
+      from: 'clientes',
+      localField: 'clienteId',
+      foreignField: 'clienteId',
+      as: 'dadosComprador'
+    }
+  },
+  {
+    $group: {
+      _id: "$dadosComprador.endereco.uf",
+      totalVendas: { $sum: 1 }
+    }
+  },
+  {
+    $sort: {
+      totalVendas: -1
+    }
+  },
+  {
+    $limit: 3
+  },
+  {
+    $project: {
+      uf: "$_id",
+      totalVendas: 1,
+      _id: 0
+    }
+  }
+]);
 // Exercício 13 : Encontre qual foi o total de vendas e a média de vendas de cada uf no ano de 2019 . 
 // Ordene os resultados pelo nome da uf . Retorne os documentos no seguinte formato:
