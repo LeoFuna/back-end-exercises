@@ -94,3 +94,24 @@ db.clientes.aggregate([
   }}, 
   { $project: { total: 1 } }
 ]);
+// Exercício 7 : Utilizando a mesma agregação do exercício anterior, adicione um estágio de projeção para modificar 
+// os documentos de saída, de forma que se pareçam com o documento a seguir (não se importe com a ordem dos campos):
+db.clientes.aggregate([ 
+  { $group: {
+    _id: {
+      sexo: "$sexo",
+      localidade: "$endereco.uf"
+      },
+    total: {
+      $sum: 1
+    }
+  }}, 
+  { $project: { estado: "$_id.localidade", sexo: "$_id.sexo", total: 1, _id: 0 } }
+]);
+// Exercício 8 : Descubra quais são os 5 clientes que gastaram o maior valor.
+// Exercício 9 : Descubra quais são os 10 clientes que gastaram o maior valor no ano de 2019 .
+// Exercício 10 : Descubra quantos clientes compraram mais de 5 vezes. Retorne um documento que contenha somente o campo clientes com o total de clientes.
+// Exercício 11 : Descubra quantos clientes compraram menos de três vezes entre os meses de Janeiro de 2020 e Março de 2020 .
+// Exercício 12 : Descubra quais as três uf s que mais compraram no ano de 2020 . Retorne os documentos no seguinte formato:
+// Exercício 13 : Encontre qual foi o total de vendas e a média de vendas de cada uf no ano de 2019 . 
+// Ordene os resultados pelo nome da uf . Retorne os documentos no seguinte formato:
