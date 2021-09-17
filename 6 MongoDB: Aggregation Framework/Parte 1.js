@@ -202,6 +202,9 @@ db.vendas.aggregate([
     }
   },
   {
+    $unwind: "$dadosComprador" // para retirar o objeto de dentro do array
+  },
+  {
     $group: {
       _id: "$dadosComprador.endereco.uf",
       totalVendas: { $sum: 1 }
