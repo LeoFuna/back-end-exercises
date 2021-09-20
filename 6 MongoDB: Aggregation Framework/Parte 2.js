@@ -149,5 +149,92 @@ db.clientes.aggregate([
   },
 ]).itcount();
 // Exercício 6 : Ainda nesse pipeline , descubra os 5 estados com mais compras.
-
-// Exercício 7 : Descubra o cliente que mais consumiu QUEIJO PRATO . Retorne um documento com a seguinte estrutura:
+db.clientes.aggregate([
+  {
+  $addFields: { 
+      idade: { 
+        $floor: { $divide: [{ $subtract: [new Date(), "$dataNascimento"] }, 86400000 * 365] } 
+      }
+    }
+  },
+  {
+    $lookup: {
+      from: 'vendas',
+      localField: 'clienteId',
+      foreignField: 'clienteId',
+      as: 'compras'
+    }
+  },
+  {
+    $match: {
+      "compras.dataVenda": { $gt: ISODate('2019-06-01'), $lt: ISODate('2020-03-31') }
+    }
+  },
+  {
+    $unwind: "$compras",
+  },
+  {
+    $group: {
+      _id: "$endereco.uf",
+      comprasDoEstado: {
+        $sum: 1
+      }
+    }
+  },
+  {
+    $sort: { comprasDoEstado: -1 }
+  },
+  {
+    $limit: 5,
+  }
+]);
+// Exercício 7 : Descubra o cliente que mais consumiu QUEIJO PRATO .
+db.clientes.aggregate([
+  {
+    $lookup: {
+      from: 'vendas',
+      localField: 'clienteId',
+      foreignField: 'clienteId',
+      as: 'compras'
+    }
+  },
+  {
+    $unwind: "$compras"
+  },
+  {
+    $unwind: "$compras.itens"
+  },
+  {
+    $match: { "compras.itens.nome": "QUEIJO PRATO" }
+  },
+  {
+    $group: {
+      _id: "$nome",
+      totalDeQueijosComprados: {
+        $sum: "$compras.itens.quantidade"
+      }
+    }
+  },
+  {
+    $sort: { totalDeQueijosComprados: -1 }
+  },
+  {
+    $limit: 1,
+  },
+  {
+    $lookup: {
+      from: 'clientes',
+      localField: '_id',
+      foreignField: 'nome',
+      as: 'dadosCliente'
+    }
+  },
+  {
+    $project: {
+      nomeCliente: "$_id",
+      uf: "$dadosCliente.endereco.uf",
+      totalConsumido: "$totalDeQueijosComprados",
+      _id: 0,
+    }
+  }
+]);
