@@ -65,6 +65,24 @@ db.produtos.aggregate([{ $project: { nome: 1, indiceDeAceitacao: { $subtract: [{
     }
   ]);
 // Exercício 2 : Utilizando o novo campo idade , conte quantos clientes têm entre 18 e 25 anos.
+db.clientes.aggregate([
+  {
+  $addFields: { 
+      idade: { 
+        $floor: { $divide: [{ $subtract: [new Date(), "$dataNascimento"] }, 86400000 * 365] } 
+      }
+    }
+  },
+  {
+    $match: {
+      idade: { $gt: 18, $lt: 25 }
+    }
+  },
+  {
+    $count: 'totalDeClientes'
+  }
+]);
+
 // Exercício 3 : Remova os estágios $count e $match do exercício anterior e adicione um estágio no pipeline que coloque as compras do cliente no campo compras .
 // Exercício 4 : Selecione TODOS os clientes que compraram entre Junho de 2019 e Março de 2020 .
 // Exercício 5 : Confira o número de documentos retornados pelo pipeline com o método itcount() . Até aqui, você deve ter 486 documentos sendo retornados.
