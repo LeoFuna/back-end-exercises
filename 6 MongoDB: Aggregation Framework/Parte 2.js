@@ -47,3 +47,26 @@ db.clients.aggregate([
 db.produtos.aggregate([{ $project: { nome: 1, indiceDeAceitacao: { $add: ["$curtidas", "$vendidos"] } } }]);
 // FIXAÇÃO $subtract no $project
 db.produtos.aggregate([{ $project: { nome: 1, indiceDeAceitacao: { $subtract: [{ $add: ["$curtidas", 1000] }, "$vendidos"] } } }])
+// OBSERVAR AS EXPRESSÕES $ceil $floor $rounds
+
+// EXERCICIOS DOD DIA
+// Exercício 1 : Utilize uma combinação das expressões aritméticas e adicione um campo chamado idade à coleção clientes . 
+// Algumas dicas:
+  // - arredonde para baixo o valor da idade;
+  // - calcule a idade usando a diferença entre a data corrente e a data de nascimento;
+  // - 1 dia é igual a 86400000 milissegundos.
+  db.clientes.aggregate([
+    {
+    $addFields: { 
+        idade: { 
+          $floor: { $divide: [{ $subtract: [new Date(), "$dataNascimento"] }, 86400000 * 365] } 
+        }
+      }
+    }
+  ]);
+// Exercício 2 : Utilizando o novo campo idade , conte quantos clientes têm entre 18 e 25 anos.
+// Exercício 3 : Remova os estágios $count e $match do exercício anterior e adicione um estágio no pipeline que coloque as compras do cliente no campo compras .
+// Exercício 4 : Selecione TODOS os clientes que compraram entre Junho de 2019 e Março de 2020 .
+// Exercício 5 : Confira o número de documentos retornados pelo pipeline com o método itcount() . Até aqui, você deve ter 486 documentos sendo retornados.
+// Exercício 6 : Ainda nesse pipeline , descubra os 5 estados com mais compras.
+// Exercício 7 : Descubra o cliente que mais consumiu QUEIJO PRATO . Retorne um documento com a seguinte estrutura:
