@@ -46,4 +46,4 @@ db.clients.aggregate([
 // FIXAÇÃO $add no $project
 db.produtos.aggregate([{ $project: { nome: 1, indiceDeAceitacao: { $add: ["$curtidas", "$vendidos"] } } }]);
 // FIXAÇÃO $subtract no $project
-db.produtos.aggregate([{ $project: { nome: 1, indiceDeAceitacao: { $subtract: ["$curtidas", "$vendidos"] } } }]);
+db.produtos.aggregate([{ $project: { nome: 1, indiceDeAceitacao: { $subtract: [{ $add: ["$curtidas", 1000] }, "$vendidos"] } } }])
