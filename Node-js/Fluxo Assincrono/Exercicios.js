@@ -25,3 +25,17 @@ function somaPrimeirosMultiplicaUltimo(num1, num2, num3) {
   somaPrimeirosMultiplicaUltimo(randomNumber, randomNumber, randomNumber)
     .then( result => console.log(result) )
     .catch( error => console.log(error.message) )
+
+// 3 Reescreva o código do exercício anterior para que utilize async/await .
+// Lembre-se: a palavra chave await só pode ser utilizada dentro de funções async .
+
+async function rodaFuncao() {
+  try {
+    const result = await somaPrimeirosMultiplicaUltimo(randomNumber,randomNumber,randomNumber)
+    console.log(result);
+  } catch (error) {
+    console.log(error.message);
+  }
+}
+
+rodaFuncao()
