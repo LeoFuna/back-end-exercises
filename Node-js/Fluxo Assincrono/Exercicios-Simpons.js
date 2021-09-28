@@ -27,15 +27,15 @@ function detalhaPersonagem(id) {
 
 // 3 Crie uma função que altere o arquivo simpsons.json retirando os personagens com id 10 e 6.
 
-function retornaPersonagens() {
-  return fs.readFile(__dirname + '/simpsons.json', 'utf-8')
+function retornaPersonagens(caminho) {
+  return fs.readFile(__dirname + caminho, 'utf-8')
     .then((response) => JSON.parse(response))
       .then((result) => result)
     .catch((error) => console.log(error.message))
 }
 
 function retiraPersonagem(personagensId) {
-  return retornaPersonagens()
+  return retornaPersonagens('/simpsons.json')
     .then(result => result.filter(personagem => !personagensId.includes(parseInt(personagem.id, 10)))) // tirado do https://stackoverflow.com/questions/34901593/how-to-filter-an-array-from-all-elements-of-another-array
       .then(filtered => fs.writeFile(__dirname + '/simpsons.json', ['wx'], JSON.stringify(filtered)))
     .catch(error => console.log(error.message))
@@ -45,13 +45,22 @@ function retiraPersonagem(personagensId) {
 
 // 4 Crie uma função que leia o arquivo simpsons.json e crie um novo arquivo, chamado simpsonFamily.json , contendo as personagens com id de 1 a 4.
 function criaPersonagensAteOQuarto() {
-  return retornaPersonagens()
+  return retornaPersonagens('/simpsons.json')
     .then(result => [result[0], result[1], result[2], result[3]])
-      .then(filtered => fs.writeFile(__dirname + '/simpsonFamily.json', JSON.stringify(filtered)))
+      .then(simpsonFamily => fs.writeFile(__dirname + '/simpsonFamily.json', JSON.stringify(simpsonFamily)))
     .catch(error => console.log(error.message))
 }
 
-criaPersonagensAteOQuarto();
+// criaPersonagensAteOQuarto();
 
-// 5 Crie uma função que adicione ao arquivo simpsonFamily.json o personagem Nelson Muntz .
+// 5 Crie uma função que adicione ao arquivo simpsonFamily.json o personagem Nelson Muntz.
+function adicionaPersonagem() {
+  return retornaPersonagens('/simpsonFamily.json')
+    .then(result => [...result, { id: "5", name: 'Nelson Muntz' }])
+      .then(familyNew => fs.writeFile(__dirname + '/simpsonFamily.json', JSON.stringify(familyNew)))
+    .catch(error => console.log(error.message))
+}
+
+adicionaPersonagem();
+
 // 6 Crie uma função que substitua o personagem Nelson Muntz pela personagem Maggie Simpson no arquivo simpsonFamily.json .
