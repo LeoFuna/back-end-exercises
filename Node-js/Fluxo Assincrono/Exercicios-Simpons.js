@@ -62,5 +62,3 @@ function adicionaPersonagem() {
 }
 
 adicionaPersonagem();
-
-// 6 Crie uma função que substitua o personagem Nelson Muntz pela personagem Maggie Simpson no arquivo simpsonFamily.json .
