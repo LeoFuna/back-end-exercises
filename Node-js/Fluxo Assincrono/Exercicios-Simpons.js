@@ -26,6 +26,23 @@ function detalhaPersonagem(id) {
 }
 
 // 3 Crie uma função que altere o arquivo simpsons.json retirando os personagens com id 10 e 6.
+
+function retornaPersonagens() {
+  return fs.readFile(__dirname + '/simpsons.json', 'utf-8')
+    .then((response) => JSON.parse(response))
+      .then((result) => result)
+    .catch((error) => console.log(error.message))
+}
+
+function retiraPersonagem(personagensId) {
+  return retornaPersonagens()
+    .then(result => result.filter(personagem => !personagensId.includes(parseInt(personagem.id, 10)))) // tirado do https://stackoverflow.com/questions/34901593/how-to-filter-an-array-from-all-elements-of-another-array
+      .then(filtered => fs.writeFile(__dirname + '/simsons.json', ['wx'], JSON.stringify(filtered)))
+    .catch(error => console.log(error.message))
+}
+
+retiraPersonagem([2,4])
+
 // 4 Crie uma função que leia o arquivo simpsons.json e crie um novo arquivo, chamado simpsonFamily.json , contendo as personagens com id de 1 a 4.
 // 5 Crie uma função que adicione ao arquivo simpsonFamily.json o personagem Nelson Muntz .
 // 6 Crie uma função que substitua o personagem Nelson Muntz pela personagem Maggie Simpson no arquivo simpsonFamily.json .
