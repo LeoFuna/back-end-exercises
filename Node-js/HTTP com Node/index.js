@@ -47,3 +47,13 @@ app.get('/simpsons/:id', async (req, res) => {
   if (theSimpson.length < 1) return res.status(404).json({ "message": "simpson not found" })
   res.status(200).json(theSimpson[0]);
 })
+
+app.post('/simpsons', async (req, res) => {
+  const { id, name } = req.body;
+  const { getSimpsons, writeSimpson } = simpsonsUtils;
+  const simpsons = await getSimpsons();
+  const theSimpson = simpsons.filter((simpson) => Number(simpson.id) === id)
+  if (theSimpson.length > 0) return res.status(409).json({ "message": "id already exists" })
+  await writeSimpson([...simpsons, { id, name }])
+  res.status(204).end();
+})
