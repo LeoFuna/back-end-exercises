@@ -28,3 +28,13 @@ app.put('/users/:name/:age', (req, res) => {
   const { name, age } = req.params;
   res.status(200).json({ "message": `Hello ${ name }, você tem ${ age } anos` })
 })
+
+// ------
+
+const simpsonsUtils = require('./fs-utils');
+
+app.get('/simpsons', (_req, res) => {
+  const { getSimpsons } = simpsonsUtils;
+  const simpsons = getSimpsons();
+  res.status(200).json(simpsons);
+})
