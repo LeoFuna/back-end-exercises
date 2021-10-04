@@ -7,5 +7,5 @@ app.listen(3001, () => { // pedindo ao express que fique "escutando" na porta 30
 })
 
 app.get('/ping', (_req, res) => {
-  res.status(200).send({ message: 'pong' })
+  res.status(200).json({ "message": 'pong' })
 });
