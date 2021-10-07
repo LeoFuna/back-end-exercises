@@ -1,4 +1,4 @@
-const { MongoClient } = require('mongodb');
+const { MongoClient, ObjectId } = require('mongodb');
 
 const OPTIONS = {
     useNewUrlParser: true,
@@ -21,6 +21,13 @@ const getAll = async () => {
     .then((db) => db.collection('authors').find().toArray()) //Porque o toArray?
 }
 
+const findAuthorById = async (authorId) => {
+  return connection()
+    .then((db) => db.collection('authors').findOne({ _id: new ObjectId(authorId) }))
+    .catch(() => null);
+}
+
 module.exports = {
   getAll,
+  findAuthorById,
 }
