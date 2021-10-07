@@ -52,7 +52,23 @@ const findAuthorById = async (authorId) => {
   });
 };
 
+const isValid = (firstName, middleName, lastName) => {
+  if (!firstName || typeof firstName !== 'string') return false;
+  if (middleName && typeof middleName !== 'string') return false;
+  if (!lastName || typeof lastName !== 'string') return false;
+  return true;
+}
+
+const create = async (firstName, middleName, lastName) => {
+  await connection.execute(
+    'INSERT INTO authors (first_name, middle_name, last_name) VALUES (?, ?, ?);',
+    [firstName, middleName, lastName]
+  )
+};
+
 module.exports = {
     getAll,
     findAuthorById,
+    create,
+    isValid,
 };
