@@ -33,4 +33,9 @@ app.get('/books', async (req, res) => {
   res.status(200).json(booksFromAuthor);
 });
 
-app.get('')
+app.get('/books/:id', async (req, res) => {
+  const { id } = req.params;
+  const bookFromId = await Book.getBookFromId(id);
+  if (!bookFromId) return res.status(404).json({ message: "Id inválido" });
+  res.status(200).json(bookFromId);
+});
