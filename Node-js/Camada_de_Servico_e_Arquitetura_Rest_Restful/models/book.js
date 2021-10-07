@@ -9,7 +9,8 @@ const getAll = async () => {
 
 const getByAuthorId = async (authorId) => {
   const [booksFromAuthor] = await connection.execute(
-    `SELECT * FROM books WHERE author_id =${authorId} `
+    'SELECT * FROM books WHERE author_id=?',
+    [authorId]
   );
   return booksFromAuthor;
 };
