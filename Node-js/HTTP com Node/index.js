@@ -52,7 +52,7 @@ app.post('/simpsons', async (req, res) => {
   const { id, name } = req.body;
   const { getSimpsons, writeSimpson } = simpsonsUtils;
   const simpsons = await getSimpsons();
-  const theSimpson = simpsons.filter((simpson) => Number(simpson.id) === id)
+  const theSimpson = simpsons.filter((simpson) => Number(simpson.id) === id) // number pois o numero vem como string do simpsonsUtils, mas como Number no body
   if (theSimpson.length > 0) return res.status(409).json({ "message": "id already exists" })
   await writeSimpson([...simpsons, { id, name }])
   res.status(204).end();
