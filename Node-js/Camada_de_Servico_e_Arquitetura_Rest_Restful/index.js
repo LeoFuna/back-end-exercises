@@ -1,5 +1,4 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 
 const Author = require('./models/authors');
 const Book = require('./models/book');
@@ -8,7 +7,7 @@ const app = express();
 
 const PORT = 3000;
 
-app.use(bodyParser.json());
+app.use(express.json()); // substitui o body-parser, pois o mesmo está depreciado
 
 app.listen(PORT, () => {
   console.log('Ouvindo a porta 3000')
