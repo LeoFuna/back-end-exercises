@@ -5,9 +5,14 @@ const getAll = async () => {
   return allUsers;
 }
 
+const notExist = (input) => {
+  if (!input) return true;
+  return false;
+}
+
 const create = async (firstName, lastName, email, password) => {
   const error = 404;
-  if(!firstName || !lastName || !email || !password) return { error, message: 'Todos os campos são obrigatórios!' };
+  if(notExist(firstName) || notExist(lastName) || notExist(email) || notExist(password)) return { error, message: 'Todos os campos são obrigatórios!' };
   if(String(password).length < 6) return { error, message: "A senha deve ter o mínimo de 6 caracteres!" };
   if(typeof password !== 'number') return { error, message: 'A senha deve ser somente de números!' };
   const response = await Users.create(firstName, lastName, email, password);
