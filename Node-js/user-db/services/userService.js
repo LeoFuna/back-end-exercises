@@ -1,23 +1,9 @@
 const Users = require('../models/userModel');
+const { notExist, lengthIsGreaterThan, isTypeNotOk } = require('../schemas/usersSchemas');
 
 const getAll = async () => {
   const allUsers = await Users.getAll();
   return allUsers;
-}
-
-const notExist = (input) => {
-  if (!input) return true;
-  return false;
-}
-
-const lengthIsGreaterThan = (input, size) => {
-  if (String(input).length > size) return true;
-  return false;
-}
-
-const isTypeNotOk = (data, typeOk) => {
-  if (typeof data !== typeOk) return true;
-  return false;
 }
 
 const create = async (firstName, lastName, email, password) => {
@@ -29,7 +15,13 @@ const create = async (firstName, lastName, email, password) => {
   return response;
 };
 
+const deleteAll = async () => {
+  const response = await Users.deleteAll();
+  return response;
+}
+
 module.exports = {
   getAll,
   create,
+  deleteAll,
 }

@@ -1,5 +1,5 @@
 const express = require('express');
-const { create, getAll } = require('./services/userService');
+const { create, getAll, deleteAll } = require('./services/userService');
 
 const app = express();
 
@@ -20,3 +20,8 @@ app.post('/users', async (req, res) => {
   if(response.message) return res.status(response.error).json(response.message);
   res.status(200).json(response);
 });
+
+app.delete('/users', async (_req, res) => {
+  const response = await deleteAll();
+  res.status(200).json(response);
+})

@@ -10,7 +10,13 @@ const create = async (firstName, lastName, email, password) => {
   return { id: response.insertedId, firstName, lastName, email, password };
 }
 
+const deleteAll = async () => {
+  const response = await connection().then((db) => db.collection('users').deleteMany());
+  return response;
+}
+
 module.exports = {
   getAll,
   create,
+  deleteAll,
 }
