@@ -1,5 +1,5 @@
 const express = require('express');
-const { create, getAll, deleteAll } = require('./services/userService');
+const { getAllUsers, createUser, deleteAllUsers, getUserById } = require('./controllers/usersController');
 
 const app = express();
 
@@ -9,19 +9,9 @@ const PORT = 3000
 
 app.listen(PORT, () => console.log(`Ouvindo a porta ${ PORT }`));
 
-app.get('/users', async (_req, res) => {
-  const response = await getAll();
-  res.status(200).json(response);
-})
+app.get('/users', getAllUsers);
+app.get('/users/:id', getUserById);
 
-app.post('/users', async (req, res) => {
-  const { firstName, lastName, email, password } = req.body;
-  const response = await create(firstName, lastName, email, password);
-  if(response.message) return res.status(response.error).json(response.message);
-  res.status(200).json(response);
-});
+app.post('/users', createUser);
 
-app.delete('/users', async (_req, res) => {
-  const response = await deleteAll();
-  res.status(200).json(response);
-})
+app.delete('/users', deleteAllUsers);

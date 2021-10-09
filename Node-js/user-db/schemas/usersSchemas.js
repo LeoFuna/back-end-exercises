@@ -1,3 +1,5 @@
+const { ObjectId } = require('mongodb');
+
 const notExist = (input) => {
   if (!input) return true;
   return false;
@@ -13,8 +15,14 @@ const isTypeNotOk = (data, typeOk) => {
   return false;
 }
 
+const idIsNotValid = (id) => {
+  if (!ObjectId.isValid(id)) return true;
+  return false;
+}
+
 module.exports = {
   notExist,
   lengthIsGreaterThan,
   isTypeNotOk,
+  idIsNotValid,
 }

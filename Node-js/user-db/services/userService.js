@@ -1,10 +1,16 @@
 const Users = require('../models/userModel');
-const { notExist, lengthIsGreaterThan, isTypeNotOk } = require('../schemas/usersSchemas');
+const { notExist, lengthIsGreaterThan, isTypeNotOk, idIsNotValid } = require('../schemas/usersSchemas');
 
 const getAll = async () => {
   const allUsers = await Users.getAll();
   return allUsers;
 }
+
+const getById = async (id) => {
+  if (idIsNotValid(id)) return { error: 404, message: 'O ID informado é inválido' };
+  const userData = await Users.getById(id);
+  return userData;
+};
 
 const create = async (firstName, lastName, email, password) => {
   const error = 404;
@@ -24,4 +30,5 @@ module.exports = {
   getAll,
   create,
   deleteAll,
+  getById,
 }
