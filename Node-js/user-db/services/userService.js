@@ -24,7 +24,7 @@ const create = async (firstName, lastName, email, password) => {
 const update = async (id, firstName, lastName, email, password) => {
   if (idIsNotValid(id)) return { error: 404, message: 'O ID informado é inválido' };
   if (notHasSomethingToUpdate(firstName, lastName, email, password)) return { error: 404, message: 'É necessário informar algo para ser atualizado.' };
-  const updateParams = {};
+  let updateParams = {};
   if(firstName) updateParams = {...updateParams, firstName};
   if(lastName) updateParams = {...updateParams, lastName};
   if(email) updateParams = {...updateParams, email};
@@ -43,4 +43,5 @@ module.exports = {
   create,
   deleteAll,
   getById,
+  update,
 }

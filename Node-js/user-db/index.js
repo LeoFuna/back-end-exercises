@@ -1,5 +1,5 @@
 const express = require('express');
-const { getAllUsers, createUser, deleteAllUsers, getUserById } = require('./controllers/usersController');
+const { getAllUsers, createUser, deleteAllUsers, getUserById, updateUserById } = require('./controllers/usersController');
 
 const app = express();
 
@@ -13,5 +13,7 @@ app.get('/users', getAllUsers);
 app.get('/users/:id', getUserById);
 
 app.post('/users', createUser);
+
+app.put('/users/:id', updateUserById);
 
 app.delete('/users', deleteAllUsers);

@@ -17,7 +17,7 @@ const create = async (firstName, lastName, email, password) => {
 }
 
 const update = async (id ,updateParams) => {
-  const updateResponse = await connection().then((db) => db.collection('users').update({ _id: id }, { $set: updateParams }));
+  const updateResponse = await connection().then((db) => db.collection('users').update({ _id: new ObjectId(id) }, { $set: updateParams }));
   return updateResponse;
 }
 

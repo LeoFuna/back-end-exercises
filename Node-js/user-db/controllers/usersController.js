@@ -1,4 +1,4 @@
-const { create, getAll, deleteAll, getById } = require('../services/userService');
+const { create, getAll, deleteAll, getById, update } = require('../services/userService');
 
 const getAllUsers = async (_req, res) => {
   const response = await getAll();
@@ -8,6 +8,14 @@ const getAllUsers = async (_req, res) => {
 const getUserById = async (req, res) => {
   const { id } = req.params;
   const response = await getById(id);
+  if (response.message) return res.status(response.error).json(response.message);
+  res.status(200).json(response);
+}
+
+const updateUserById = async (req, res) => {
+  const { id } = req.params;
+  const { firstName, lastName, email, password } = req.body;
+  const response = await update(id, firstName, lastName, email, password);
   if (response.message) return res.status(response.error).json(response.message);
   res.status(200).json(response);
 }
@@ -29,4 +37,5 @@ module.exports = {
   createUser,
   deleteAllUsers,
   getUserById,
+  updateUserById
 }
