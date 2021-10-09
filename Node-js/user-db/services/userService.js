@@ -1,5 +1,5 @@
 const Users = require('../models/userModel');
-const { notExist, lengthIsGreaterThan, isTypeNotOk, idIsNotValid } = require('../schemas/usersSchemas');
+const { notExist, lengthIsGreaterThan, isTypeNotOk, idIsNotValid, notHasSomethingToUpdate } = require('../schemas/usersSchemas');
 
 const getAll = async () => {
   const allUsers = await Users.getAll();
@@ -20,6 +20,18 @@ const create = async (firstName, lastName, email, password) => {
   const response = await Users.create(firstName, lastName, email, password);
   return response;
 };
+
+const update = async (id, firstName, lastName, email, password) => {
+  if (idIsNotValid(id)) return { error: 404, message: 'O ID informado é inválido' };
+  if (notHasSomethingToUpdate(firstName, lastName, email, password)) return { error: 404, message: 'É necessário informar algo para ser atualizado.' };
+  const updateParams = {};
+  if(firstName) updateParams = {...updateParams, firstName};
+  if(lastName) updateParams = {...updateParams, lastName};
+  if(email) updateParams = {...updateParams, email};
+  if(password) updateParams = {...updateParams, password};
+  const updateResponse = await Users.update(id, updateParams);
+  return updateResponse;
+}
 
 const deleteAll = async () => {
   const response = await Users.deleteAll();

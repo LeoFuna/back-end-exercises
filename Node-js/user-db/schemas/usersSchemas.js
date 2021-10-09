@@ -20,9 +20,15 @@ const idIsNotValid = (id) => {
   return false;
 }
 
+const notHasSomethingToUpdate = (firstName, lastName, email, password) => {
+  if (notExist(firstName) && notExist(lastName) && notExist(email) && notExist(password)) return true;
+  return false;
+}
+
 module.exports = {
   notExist,
   lengthIsGreaterThan,
   isTypeNotOk,
   idIsNotValid,
+  notHasSomethingToUpdate,
 }
