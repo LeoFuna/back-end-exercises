@@ -1,5 +1,5 @@
 const express = require('express');
-const { getCepById, createCep, getAllCeps } = require('./Controllers/cepController');
+const { getCepByCep, createCep, getAllCeps } = require('./Controllers/cepController');
 
 const app = express();
 
@@ -13,7 +13,7 @@ app.get('/ping', (_req, res) => {
   res.status(200).json({ message: 'pong!' })
 })
 
-app.get('/cep/:cep', getCepById);
+app.get('/cep/:cep', getCepByCep);
 app.get('/cep', getAllCeps);
 
 app.post('/cep', createCep);
