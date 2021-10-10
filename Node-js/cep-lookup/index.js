@@ -1,7 +1,9 @@
 const express = require('express');
-const { getCepById } = require('./Controllers/cepController');
+const { getCepById, createCep } = require('./Controllers/cepController');
 
 const app = express();
+
+app.use(express.json());
 
 const PORT = 3001;
 
@@ -12,3 +14,5 @@ app.get('/ping', (_req, res) => {
 })
 
 app.get('/cep/:cep', getCepById);
+
+app.post('/cep', createCep);

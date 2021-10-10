@@ -1,4 +1,4 @@
-const { getCep } = require("../Services/cepService");
+const { getCep, create } = require("../Services/cepService");
 
 const getCepById = async (req, res) => {
   const { cep } = req.params;
@@ -7,6 +7,13 @@ const getCepById = async (req, res) => {
   res.status(200).json(responseCep);
 }
 
+const createCep = async (req, res) => {
+  const { cep, logradouro, bairro, localidade, uf } = req.body;
+  const createResponse = await create(cep, logradouro, bairro, localidade, uf);
+  res.status(200).json(createResponse);
+}
+
 module.exports = {
   getCepById,
+  createCep,
 }
