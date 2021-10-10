@@ -8,6 +8,13 @@ const getByCep = async (cep) => {
   return cepData;
 };
 
+const getAll = async () => {
+  const [ceps] = await connection.execute(
+    'SELECT * FROM ceps;'
+  );
+  return ceps;
+}
+
 const create = async (cep, logradouro, bairro, localidade, uf) => {
   const createResponse = await connection.execute(
     'INSERT INTO ceps (cep, logradouro, bairro, localidade, uf) VALUES (?, ?, ?, ?, ?);',
@@ -19,4 +26,5 @@ const create = async (cep, logradouro, bairro, localidade, uf) => {
 module.exports = {
   getByCep,
   create,
+  getAll,
 }

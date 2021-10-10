@@ -1,10 +1,15 @@
-const { getCep, create } = require("../Services/cepService");
+const { getCep, create, getAll } = require("../Services/cepService");
 
 const getCepById = async (req, res) => {
   const { cep } = req.params;
   const responseCep = await getCep(cep);
   if (responseCep.error) return res.status(responseCep.error.code).json(responseCep.error.message);
   res.status(200).json(responseCep);
+}
+
+const getAllCeps = async (_req, res) => {
+  const cepsData = await getAll();
+  res.status(200).json(cepsData);
 }
 
 const createCep = async (req, res) => {
@@ -16,4 +21,5 @@ const createCep = async (req, res) => {
 module.exports = {
   getCepById,
   createCep,
+  getAllCeps,
 }

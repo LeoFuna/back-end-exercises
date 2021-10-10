@@ -8,6 +8,11 @@ const getCep = async (cep) => {
   return cepResponse;
 };
 
+const getAll = async () => {
+  const cepsData = await Cep.getAll();
+  return cepsData;
+}
+
 const create = async (cep, logradouro, bairro, localidade, uf) => {
   const createResponse = await Cep.create(cep, logradouro, bairro, localidade, uf);
   return createResponse;
@@ -16,4 +21,5 @@ const create = async (cep, logradouro, bairro, localidade, uf) => {
 module.exports = {
   getCep,
   create,
+  getAll,
 }
