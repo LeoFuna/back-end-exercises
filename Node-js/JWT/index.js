@@ -3,6 +3,7 @@ const { login } = require('./controllers/loginController');
 const { userValidation } = require('./middlewares/userValidations');
 const { errors } = require('./middlewares/errors'); 
 const { auth } = require('./auth/auth');
+const { getAllUsers } = require('./controllers/getAllUsersController');
 
 const app = express();
 
@@ -12,7 +13,7 @@ const PORT = 3001;
 
 app.post('/login', userValidation, login)
 
-app.get('/users', auth, )
+app.get('/users', auth, getAllUsers)
 
 app.use(errors)
 
